@@ -13,10 +13,7 @@ class SplashActivity: ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            Text("heelo")
-            Button(onClick = { /*TODO*/ }) {
-                Text("click me")
-            }
+
         }
     }
 }
