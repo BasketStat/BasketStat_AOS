@@ -31,6 +31,9 @@ jetbrain-serialization-plugin="1.9.22"
 retrofit="2.9.0"
 jakewharton-serialization-converter="1.0.0"
 okhttp="4.12.0"
+
+kakao = "2.20.1"
+
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -73,6 +76,8 @@ coil={group="io.coil-kt",name="coil",version.ref="coil"}
 coil-compose={group="io.coil-kt",name="coil-compose",version.ref="coil"}
 
 firebase-bom={group="com.google.firebase",name="firebase-bom",version.ref="firebase-bom"}
+
+kakao-login={group="com.kakao.sdk",name="v2-user",version.ref="kakao"}
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
