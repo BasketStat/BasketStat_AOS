@@ -1,3 +1,5 @@
+import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
+
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.jetbrains.kotlin.android)
@@ -16,6 +18,7 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
+        resValue("string","kakao_oauth_host",getApiKey("kakao_oauth_host"))
     }
 
     buildTypes {
@@ -41,7 +44,9 @@ android {
         jvmTarget = "1.8"
     }
 }
-
+fun getApiKey(propertyKey:String):String{
+    return gradleLocalProperties(rootDir,providers).getProperty(propertyKey)
+}
 dependencies {
 
     implementation(project(":Domain"))
@@ -69,6 +74,9 @@ dependencies {
 
     //firebasebom
     implementation(platform(libs.firebase.bom))
+
+    //kakao-login
+    implementation(libs.kakao.login)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
