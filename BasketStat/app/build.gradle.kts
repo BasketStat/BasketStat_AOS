@@ -1,3 +1,5 @@
+import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
@@ -20,6 +22,7 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+        buildConfigField("String","KAKAO_API_KEY",getApiKey("KAKAO_API_KEY"))
     }
 
     buildTypes {
@@ -40,6 +43,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.8"
@@ -50,8 +54,13 @@ android {
         }
     }
 }
-
+fun getApiKey(propertyKey:String):String{
+    return gradleLocalProperties(rootDir,providers).getProperty(propertyKey)
+}
 dependencies {
+    //kakao-login
+    implementation(libs.kakao.login)
+
     implementation(project(":Presentation"))
     implementation(project(":Data"))
     implementation(project(":Domain"))
