@@ -48,6 +48,8 @@ dependencies {
     implementation(platform(libs.firebase.bom))
     //firebaseauth
     implementation(libs.fireauth)
+    //firestore
+    implementation(libs.firestore)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
