@@ -6,6 +6,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.dkproject.domain.usecase.signup.CheckExistUserUseCase
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.UserProfileChangeRequest
+import com.google.firebase.auth.oAuthCredential
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.model.ClientError
 import com.kakao.sdk.common.model.ClientErrorCause
@@ -16,6 +18,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
 
@@ -36,16 +39,58 @@ class LoginViewModel @Inject constructor(
             if (error != null) {
                 Log.e(TAG, "카카오계정으로 로그인 실패", error)
             } else if (token != null) {
-                Log.i(TAG, "카카오계정으로 로그인 성공 ${token.accessToken}")
+                UserApiClient.instance.me { user, error ->
+                    if (error != null) {
+                        Log.e(TAG, "사용자 정보 요청 실패", error)
+                    } else if (user != null) {
+                        viewModelScope.launch {
+                            val provider = "oidc.kakao"
+                            val credential = oAuthCredential(provider) {
+                                idToken = token.idToken
+                                accessToken = token.accessToken
+                            }
+                            auth.signInWithCredential(credential).addOnFailureListener {
+                                _state.update { it.copy(message = "카카오톡 로그인에 실패하였습니다.") }
+                            }.await()
+                            checkExistUserUseCase(userUid = auth.currentUser?.uid.toString()).fold(
+                                onSuccess = {exist->
+                                    if (exist) {
+                                        _state.update { it.copy(navigation = LoginNavigation.Home) }
+                                    } else {
+                                        _state.update { it.copy(navigation = LoginNavigation.SignUp) }
+                                    }
+                                },
+                                onFailure = {
+                                    _state.update { it.copy(message = "카카오톡 로그인에 실패하였습니다.") }
+                                }
+                            )
+                        }
+                    }
+
+                }
             }
         }
-        UserApiClient.instance.loginWithKakaoAccount(context) { token, error ->
-            if (error != null) {
-                Log.e(TAG, "로그인 실패", error)
-            } else if (token != null) {
-                Log.i(TAG, "로그인 성공 ${token.accessToken}")
-                UserApiClient.instance.loginWithKakaoAccount(context, callback = callback)
+
+// 카카오톡이 설치되어 있으면 카카오톡으로 로그인, 아니면 카카오계정으로 로그인
+        if (UserApiClient.instance.isKakaoTalkLoginAvailable(context)) {
+            UserApiClient.instance.loginWithKakaoTalk(context) { token, error ->
+                if (error != null) {
+                    Log.e(TAG, "카카오톡으로 로그인 실패", error)
+
+                    // 사용자가 카카오톡 설치 후 디바이스 권한 요청 화면에서 로그인을 취소한 경우,
+                    // 의도적인 로그인 취소로 보고 카카오계정으로 로그인 시도 없이 로그인 취소로 처리 (예: 뒤로 가기)
+                    if (error is ClientError && error.reason == ClientErrorCause.Cancelled) {
+                        return@loginWithKakaoTalk
+                    }
+
+                    // 카카오톡에 연결된 카카오계정이 없는 경우, 카카오계정으로 로그인 시도
+                    UserApiClient.instance.loginWithKakaoAccount(context, callback = callback)
+                } else if (token != null) {
+                    Log.i(TAG, "카카오톡으로 로그인 성공 ${token.accessToken}")
+                }
             }
+        } else {
+            UserApiClient.instance.loginWithKakaoAccount(context, callback = callback)
         }
     }
 
