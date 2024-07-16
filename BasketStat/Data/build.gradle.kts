@@ -4,7 +4,7 @@ plugins {
     alias(libs.plugins.daggerHilt)
     alias(libs.plugins.jetbrain.kotlin.serialization)
     alias(libs.plugins.googleKsp)
-
+    alias(libs.plugins.google.service)
 }
 
 android {
@@ -46,6 +46,8 @@ dependencies {
 
     //firebasebom
     implementation(platform(libs.firebase.bom))
+    //firebaseauth
+    implementation(libs.fireauth)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

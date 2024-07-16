@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.daggerHilt)
     alias(libs.plugins.googleKsp)
+    alias(libs.plugins.google.service)
 }
 
 android {
@@ -68,6 +69,9 @@ dependencies {
     implementation(libs.dagger.hilt.android)
     ksp(libs.dagger.compiler)
     ksp(libs.hilt.compiler)
+
+    //firebasebom
+    implementation(platform(libs.firebase.bom))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)

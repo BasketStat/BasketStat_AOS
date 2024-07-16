@@ -6,6 +6,7 @@ plugins {
     alias(libs.plugins.daggerHilt)
     alias(libs.plugins.jetbrain.kotlin.serialization)
     alias(libs.plugins.googleKsp)
+    alias(libs.plugins.google.service)
     id("kotlin-parcelize")
 }
 
@@ -74,6 +75,10 @@ dependencies {
 
     //firebasebom
     implementation(platform(libs.firebase.bom))
+    //firebaseauth
+    implementation(libs.fireauth)
+    //add the dependency for the Google Play services library and specify its version
+    implementation(libs.gms.play.services.auth)
 
     //kakao-login
     implementation(libs.kakao.login)
