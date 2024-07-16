@@ -20,6 +20,7 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
         resValue("string","kakao_oauth_host",getApiKey("kakao_oauth_host"))
+        buildConfigField("String","GOOGLE_CLIENT_ID",getApiKey("GOOGLE_CLIENT_ID"))
     }
 
     buildTypes {
@@ -37,6 +38,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.8"
