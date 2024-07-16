@@ -3,6 +3,7 @@ package com.dkproject.presentation.ui.screen.login
 import android.content.Context
 import android.content.Intent
 import android.content.IntentSender
+import com.dkproject.presentation.BuildConfig
 import com.google.android.gms.auth.api.identity.BeginSignInRequest
 import com.google.android.gms.auth.api.identity.SignInClient
 import com.google.firebase.Firebase
@@ -67,7 +68,7 @@ class GoogleAuthUiClient (
                 BeginSignInRequest.GoogleIdTokenRequestOptions.builder()
                     .setSupported(true)
                     .setFilterByAuthorizedAccounts(false)
-                    .setServerClientId("731519410906-h6t4nasu13bqunvos553pl75epnln953.apps.googleusercontent.com")
+                    .setServerClientId(BuildConfig.GOOGLE_CLIENT_ID)
                     .build()
             )
             .setAutoSelectEnabled(true)
