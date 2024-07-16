@@ -39,7 +39,6 @@ fun LoginScreen(
     viewModel: LoginViewModel,
     googleLoginLauncher: () -> Unit = {},
 ) {
-
     Scaffold { innerPadding ->
         Box(
             modifier = Modifier
