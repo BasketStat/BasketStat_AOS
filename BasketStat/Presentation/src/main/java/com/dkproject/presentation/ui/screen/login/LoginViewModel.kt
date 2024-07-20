@@ -116,9 +116,7 @@ class LoginViewModel @Inject constructor(
                 },
                 onFailure = {
                     _loading.update { false }
-                    Log.d(TAG, it.message.toString())
-                    Log.d(TAG, it.localizedMessage.toString())
-                    Log.d(TAG, "구글 로그인 실패")
+                    _state.update { it.copy(message = "구글 로그인 실패") }
                 }
             )
         }
@@ -126,6 +124,10 @@ class LoginViewModel @Inject constructor(
 
     fun appleLogin() {
 
+    }
+
+    fun clearSnackbarMessage() {
+        _state.update { it.copy(message = null) }
     }
 
     fun navigationReset() {
@@ -138,7 +140,7 @@ class LoginViewModel @Inject constructor(
 
 data class loginUiState(
     val navigation: LoginNavigation = LoginNavigation.Default,
-    val message: String = ""
+    val message: String? = null
 )
 
 
