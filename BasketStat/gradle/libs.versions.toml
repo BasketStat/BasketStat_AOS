@@ -34,8 +34,6 @@ jakewharton-serialization-converter="1.0.0"
 okhttp="4.12.0"
 
 kakao = "2.20.1"
-
-constraintlayout = "1.0.1"
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -85,7 +83,6 @@ gms-play-services-auth = {group="com.google.android.gms",name="play-services-aut
 
 kakao-login={group="com.kakao.sdk",name="v2-user",version.ref="kakao"}
 
-constraintlayout = {group="androidx.constraintlayout",name="constraintlayout-compose",version.ref="constraintlayout"}
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
