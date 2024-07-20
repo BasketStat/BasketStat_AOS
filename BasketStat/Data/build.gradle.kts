@@ -50,6 +50,8 @@ dependencies {
     implementation(libs.fireauth)
     //firestore
     implementation(libs.firestore)
+    //firestorage
+    implementation(libs.firestorage)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
