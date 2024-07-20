@@ -17,9 +17,13 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -42,12 +46,23 @@ import com.google.android.gms.auth.api.identity.Identity
 @Composable
 fun LoginScreen(
     viewModel: LoginViewModel,
+    message: String?,
     googleLoginLauncher: () -> Unit = {},
 ) {
     val loading by viewModel.loading.collectAsState()
-    
+    val snackbarHostState = remember { SnackbarHostState() } //스낵바 상태
 
-    Scaffold { innerPadding ->
+    LaunchedEffect(key1 = message) {
+        message?.let {
+            snackbarHostState.showSnackbar(message = message)
+            viewModel.clearSnackbarMessage()
+        }
+    }
+
+    Scaffold(
+        modifier = Modifier.fillMaxSize(),
+        snackbarHost = { SnackbarHost(hostState = snackbarHostState)}
+    ) { innerPadding ->
         Box(
             modifier = Modifier
                 .padding(innerPadding)
