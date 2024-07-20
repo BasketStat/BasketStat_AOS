@@ -1,16 +1,20 @@
 package com.dkproject.presentation.Activity
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
+import androidx.activity.SystemBarStyle
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.IntentSenderRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -19,6 +23,7 @@ import com.dkproject.presentation.ui.screen.login.LoginNavigation
 import com.dkproject.presentation.ui.screen.login.LoginScreen
 import com.dkproject.presentation.ui.screen.login.LoginViewModel
 import com.dkproject.presentation.ui.theme.BasketStatTheme
+import com.dkproject.presentation.ui.theme.background
 import com.google.android.gms.auth.api.identity.Identity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -27,6 +32,7 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class LoginActivity: ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
+        enableEdgeToEdge()
         super.onCreate(savedInstanceState)
         setContent {
             BasketStatTheme {
@@ -69,7 +75,7 @@ class LoginActivity: ComponentActivity() {
                             }
                         }
                     }
-                LoginScreen(viewModel = viewModel) {
+                LoginScreen(viewModel = viewModel, message = state.message) {
                     lifecycleScope.launch {
                         val signInIntentSender = googleAuthUiClient.signIn()
                         launcher.launch(
