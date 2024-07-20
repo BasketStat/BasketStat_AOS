@@ -3,8 +3,8 @@ package com.dkproject.presentation.Activity
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.material3.Button
-import androidx.compose.material3.Text
+import androidx.activity.enableEdgeToEdge
+import com.dkproject.presentation.ui.screen.splash.SplashScreen
 import com.dkproject.presentation.ui.theme.BasketStatTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -13,9 +13,10 @@ class SplashActivity: ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
         setContent {
             BasketStatTheme {
-
+                SplashScreen()
             }
         }
     }
