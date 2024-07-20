@@ -34,6 +34,10 @@ class LoginViewModel @Inject constructor(
 
     private val _state = MutableStateFlow(loginUiState())
     val state = _state.asStateFlow()
+
+    private val _loading = MutableStateFlow<Boolean>(false)
+    val loading = _loading.asStateFlow()
+
     fun kakaoLogin() {
         val callback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
             if (error != null) {
@@ -44,6 +48,7 @@ class LoginViewModel @Inject constructor(
                         Log.e(TAG, "사용자 정보 요청 실패", error)
                     } else if (user != null) {
                         viewModelScope.launch {
+                            _loading.update { true }
                             val provider = "oidc.kakao"
                             val credential = oAuthCredential(provider) {
                                 idToken = token.idToken
@@ -54,6 +59,7 @@ class LoginViewModel @Inject constructor(
                             }.await()
                             checkExistUserUseCase(userUid = auth.currentUser?.uid.toString()).fold(
                                 onSuccess = {exist->
+                                    _loading.update { false }
                                     if (exist) {
                                         _state.update { it.copy(navigation = LoginNavigation.Home) }
                                     } else {
@@ -61,6 +67,7 @@ class LoginViewModel @Inject constructor(
                                     }
                                 },
                                 onFailure = {
+                                    _loading.update { false }
                                     _state.update { it.copy(message = "카카오톡 로그인에 실패하였습니다.") }
                                 }
                             )
@@ -95,10 +102,12 @@ class LoginViewModel @Inject constructor(
     }
 
     fun googleLogin() {
+        _loading.update { true }
         viewModelScope.launch {
             Log.d(TAG, auth.currentUser?.uid.toString())
             checkExistUserUseCase(userUid = auth.currentUser?.uid.toString()).fold(
                 onSuccess = { exist ->
+                    _loading.update { false }
                     if (exist) {
                         _state.update { it.copy(navigation = LoginNavigation.Home) }
                     } else {
@@ -106,7 +115,10 @@ class LoginViewModel @Inject constructor(
                     }
                 },
                 onFailure = {
-
+                    _loading.update { false }
+                    Log.d(TAG, it.message.toString())
+                    Log.d(TAG, it.localizedMessage.toString())
+                    Log.d(TAG, "구글 로그인 실패")
                 }
             )
         }
