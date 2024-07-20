@@ -40,7 +40,7 @@ fun LoginButton(
     onClick: () -> Unit
 ) {
 
-    Surface(modifier=modifier.height(52.dp), shape = RoundedCornerShape(topStart = 10.dp, topEnd = 10.dp, bottomStart = 10.dp, bottomEnd = 0.dp),
+    Surface(modifier=modifier.height(52.dp), shape = RoundedCornerShape(10.dp),
         color = backgroundColor
     ) {
         Row(
