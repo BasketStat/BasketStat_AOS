@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="KakaoLogin">Kakao Login</string>
+    <string name="appleLogin">Apple로 시작하기</string>
+    <string name="googleLogin">Google로 시작하기</string>
+</resources>
