@@ -1,2 +1,2 @@
-# BasketStat_AOS
+# BasketStat_Android
 BasketStat_Android
