@@ -1,7 +1,6 @@
 package com.dkproject.presentation.ui.screen.signUp
 
 import android.content.Intent
-import android.util.Log
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
@@ -66,7 +65,7 @@ import com.dkproject.presentation.ui.theme.background
 import com.dkproject.presentation.ui.theme.buttonColor
 import com.dkproject.presentation.ui.theme.textColor
 import com.dkproject.presentation.ui.theme.textFieldBackground
-import com.dkproject.presentation.ui.theme.wheelCOlor
+import com.dkproject.presentation.ui.theme.wheelColor
 import com.dkproject.presentation.util.PositionData
 import com.dkproject.presentation.util.rememberImeState
 
@@ -194,7 +193,7 @@ fun SignUpScreen(
                         modifier = Modifier
                             .fillMaxWidth(0.8f)
                             .clip(RoundedCornerShape(12.dp))
-                            .background(color = wheelCOlor)
+                            .background(color = wheelColor)
                     ) {
                         PositionData.positions.forEach { data ->
                             Row(
