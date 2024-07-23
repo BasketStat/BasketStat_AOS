@@ -19,6 +19,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -35,6 +36,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.dkproject.presentation.R
 import com.dkproject.presentation.ui.components.LoginButton
@@ -74,20 +76,20 @@ fun LoginScreen(
             }
             Column(
                 modifier = Modifier
-                    .fillMaxSize()
-                    .padding(horizontal = 16.dp),
+                    .fillMaxSize(),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center
             ) {
+                Spacer(modifier = Modifier.weight(0.3f))
                 Image(
-                    painter = painterResource(id = R.drawable.logo), contentDescription = "",
+                    painter = painterResource(id = R.drawable.loginlogo), contentDescription = "",
                     contentScale = ContentScale.Crop,
                     alignment = Alignment.Center,
                     modifier = Modifier
                         .fillMaxWidth(0.8f)
                         .aspectRatio(1f),
                 )
-                Spacer(modifier = Modifier.height(148.dp))
+                Spacer(modifier = Modifier.weight(0.4f))
                 LoginButton(
                     modifier=Modifier.fillMaxWidth(0.8f),
                     logoImage = ImageVector.vectorResource(id = R.drawable.kakaologin),
@@ -126,7 +128,7 @@ fun LoginScreen(
                     //구글 로그인
                     googleLoginLauncher()
                 }
-
+                Spacer(modifier = Modifier.weight(0.3f))
             }
         }
     }
