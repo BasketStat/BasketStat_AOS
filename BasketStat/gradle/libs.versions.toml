@@ -34,6 +34,8 @@ jakewharton-serialization-converter="1.0.0"
 okhttp="4.12.0"
 
 kakao = "2.20.1"
+
+algolia = "3.3.1"
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -82,6 +84,12 @@ firestore={group="com.google.firebase",name="firebase-firestore"}
 gms-play-services-auth = {group="com.google.android.gms",name="play-services-auth",version.ref="play-service-auth"}
 
 kakao-login={group="com.kakao.sdk",name="v2-user",version.ref="kakao"}
+
+algolia-android = {group = "com.algolia",name = "instantsearch-android",version.ref = "algolia"}
+algolia-paging = {group = "com.algolia",name = "instantsearch-android-paging3",version.ref = "algolia"}
+algolia-compose = {group = "com.algolia", name = "instantsearch-compose",version.ref = "algolia"}
+
+
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
