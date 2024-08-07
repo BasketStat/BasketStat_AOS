@@ -21,6 +21,8 @@ android {
         consumerProguardFiles("consumer-rules.pro")
         resValue("string","kakao_oauth_host",getApiKey("kakao_oauth_host"))
         buildConfigField("String","GOOGLE_CLIENT_ID",getApiKey("GOOGLE_CLIENT_ID"))
+        buildConfigField("String","ALGOLIA_APPLICATION_ID",getApiKey("ALGOLIA_APPLICATION_ID"))
+        buildConfigField("String","ALGOLIA_API_KEY",getApiKey("ALGOLIA_API_KEY"))
     }
 
     buildTypes {
@@ -64,6 +66,10 @@ dependencies {
     ksp(libs.androidx.hilt.compiler)
     implementation(libs.androidx.hilt.navigtaion)
 
+    //paging
+    implementation(libs.androidx.paging.compose)
+    implementation(libs.androidx.paging.runtime)
+
     //coil
     implementation(libs.coil)
     implementation(libs.coil.compose)
@@ -84,6 +90,11 @@ dependencies {
 
     //kakao-login
     implementation(libs.kakao.login)
+
+    //algolia
+    implementation(libs.algolia.android)
+    implementation(libs.algolia.paging)
+    implementation(libs.algolia.compose)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
