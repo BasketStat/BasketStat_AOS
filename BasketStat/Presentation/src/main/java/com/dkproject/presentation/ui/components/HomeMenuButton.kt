@@ -29,7 +29,7 @@ fun HomeMenuButton(
 ) {
     Surface(modifier = modifier, shape = RoundedCornerShape(4.dp), color = Color.Transparent, border = BorderStroke(1.dp, recordboxborder)) {
         Row(
-            modifier = Modifier.clickable {  },
+            modifier = Modifier.clickable { onClick() },
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center
         ) {
