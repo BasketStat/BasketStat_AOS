@@ -34,7 +34,6 @@ fun CustomTextField(
     placeholderAlignment: TextAlign = TextAlign.Start,
     textStyle: TextStyle = LocalTextStyle.current,
     isError: Boolean = false,
-
 ) {
     OutlinedTextField(
         modifier = modifier,
@@ -61,6 +60,14 @@ fun CustomTextField(
             trailingIcon?.let {
                 Icon(
                     imageVector = trailingIcon,
+                    contentDescription = null
+                )
+            }
+        },
+        leadingIcon = {
+            leadingIcon?.let {
+                Icon(
+                    imageVector = leadingIcon,
                     contentDescription = null
                 )
             }
