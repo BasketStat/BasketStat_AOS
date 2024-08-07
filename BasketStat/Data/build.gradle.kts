@@ -44,6 +44,9 @@ dependencies {
     ksp(libs.dagger.compiler)
     ksp(libs.hilt.compiler)
 
+    //paging
+    implementation(libs.androidx.paging.runtime)
+
     //firebasebom
     implementation(platform(libs.firebase.bom))
     //firebaseauth
