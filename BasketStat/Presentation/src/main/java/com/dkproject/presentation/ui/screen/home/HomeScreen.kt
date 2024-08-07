@@ -1,5 +1,6 @@
 package com.dkproject.presentation.ui.screen.home
 
+import android.content.Intent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -19,15 +20,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import com.dkproject.presentation.Activity.RecordActivity
 import com.dkproject.presentation.R
 import com.dkproject.presentation.ui.components.HomeMenuButton
 import com.dkproject.presentation.ui.theme.background
 
 @Composable
 fun HomeScreen() {
-
+    val context = LocalContext.current
     Scaffold() { innerPadding ->
         Box(modifier = Modifier
             .fillMaxSize()
@@ -50,7 +53,7 @@ fun HomeScreen() {
                 )
                 Spacer(modifier = Modifier.weight(0.1f))
                 HomeMenuButton(modifier = Modifier.fillMaxWidth(0.8f),text = "팀 빌딩") {
-
+                    context.startActivity(Intent(context, RecordActivity::class.java))
                 }
                 Spacer(modifier = Modifier.height(16.dp))
                 HomeMenuButton(modifier = Modifier.fillMaxWidth(0.8f),text = "내 기록") {
