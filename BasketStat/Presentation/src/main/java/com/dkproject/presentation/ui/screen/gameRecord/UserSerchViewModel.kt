@@ -7,6 +7,7 @@ import com.algolia.instantsearch.android.paging3.searchbox.connectPaginator
 import com.algolia.instantsearch.compose.item.StatsTextState
 import com.algolia.instantsearch.compose.searchbox.SearchBoxState
 import com.algolia.instantsearch.core.connection.ConnectionHandler
+import com.algolia.instantsearch.core.searcher.Debouncer
 import com.algolia.instantsearch.searchbox.SearchBoxConnector
 import com.algolia.instantsearch.searchbox.connectView
 import com.algolia.instantsearch.searcher.hits.HitsSearcher
@@ -23,6 +24,9 @@ import com.dkproject.presentation.BuildConfig
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.parcelize.Parcelize
 import kotlinx.serialization.Serializable
 import javax.inject.Inject
@@ -38,11 +42,14 @@ class UserSearchViewModel @Inject constructor(
         logLevel = LogLevel.All
     )
 
+    private val _snackbarMessages = MutableStateFlow<String?>(null)
+    val snackbarMessages = _snackbarMessages.asStateFlow()
+
     val indexName = IndexName("Users")
     val searcher = HitsSearcher(client, indexName)
 
     val searchBoxState = SearchBoxState()
-    val searchBoxConnector = SearchBoxConnector(searcher)
+    val searchBoxConnector = SearchBoxConnector(searcher, debouncer = Debouncer(debounceTimeInMillis = 500))
     val hitsPaginator = Paginator(searcher) { it.deserialize(UserDataUiModel.serializer()) }
 
     // Stats
@@ -62,6 +69,15 @@ class UserSearchViewModel @Inject constructor(
         searcher.cancel()
         connections.clear()
     }
+
+
+    fun updateSnackbarMessage(message: String) {
+       _snackbarMessages.update { message }
+    }
+    fun updateSnackbarClear() {
+        _snackbarMessages.update { null }
+    }
+
 
 }
 
