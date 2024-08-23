@@ -8,6 +8,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import com.dkproject.presentation.navigation.GameRecordNavigation
 import com.dkproject.presentation.ui.screen.gameRecord.RecordScreen
+import com.dkproject.presentation.ui.theme.BasketStatTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -17,14 +18,8 @@ class RecordActivity: ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            GameRecordNavigation(onBack = {
-                finish()
-            }) {user->
-                val result = Intent().apply {
-                    putExtra("User",user)
-                }
-                setResult(Activity.RESULT_OK,result)
-                finish()
+            BasketStatTheme {
+                GameRecordNavigation()
             }
         }
     }
